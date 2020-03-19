@@ -12,3 +12,5 @@ script.OnDraw = () => {
 script.OnScriptUnload = () => {
     console.log(`--> Test script unloaded`);
 };
+
+RegisterScript(script);
