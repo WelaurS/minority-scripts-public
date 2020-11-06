@@ -890,6 +890,11 @@ declare class KeyValue {
 }
 
 declare class Ability extends Entity {
+	/**
+	 * works only with ability named "hero_candy_bucket"
+	 */
+	GetCandyCount(): number;
+
 	GetAbilityIndex(): number;
 
 	IsDisplayed(): boolean;
