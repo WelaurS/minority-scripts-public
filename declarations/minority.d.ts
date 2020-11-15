@@ -459,7 +459,7 @@ declare class Input {
 
 	static GetCursorPos(): [number, number];
 
-	static IsCursorInRect(x: number, y: number, width: number, height: number): boolean;
+	static IsCursorInRect(x: number, y: number, width: number, height: number, align?: Enum.ContentAlign): boolean;
 
 	static IsCursorInBounds(x1: number, y1: number, x2: number, y2: number): boolean;
 
@@ -494,6 +494,29 @@ declare class Particle {
 	Destroy(): void;
 }
 
+
+declare class ProfilerInfoObject {
+	charNumber: number;
+	lineNumber: number;
+	fileName: string;
+	functionName: string;
+	time: number;
+	callCount: number;
+}
+
+declare class Profiler
+{
+	static GetEnable(): boolean;
+
+	static SetEnable(val: boolean): void;
+
+	static SetZero(): void;
+
+	static Clear(): void;
+
+	static Get(): ProfilerInfoObject[];
+}
+
 declare class Renderer {
 	static DrawLine(x_start: number, y_start: number, x_end: number, y_end: number, time?: number): void;
 
@@ -515,7 +538,7 @@ declare class Renderer {
 
 	static DrawWorldLine(vec1: Vector, vec2: Vector, time?: number): void;
 
-	static DrawTextInRect(font: Font, x: number, y: number, width: number, height: number, text: string, time?: number);
+	static DrawTextInRect(font: Font, x: number, y: number, width: number, height: number, text: string, time?: number, align?: Enum.ContentAlign);
 
 	/**
 	 * @param align Enum.ContentAlign.LeftBottom
@@ -891,7 +914,7 @@ declare class KeyValue {
 
 declare class Ability extends Entity {
 	/**
-	 * works only with ability named "hero_candy_bucket"
+	 * works only with ability named "hero_candy_bucket", alias for GetAbilityCurrentCharges
 	 */
 	GetCandyCount(): number;
 
@@ -1025,6 +1048,8 @@ declare class EntityState {
 }
 
 declare class NPC extends Entity {
+	GetProjectileSpeed(): number;
+
 	SetHasColorGem(val: boolean): void;
 
 	HasColorGem(): boolean;
@@ -2582,7 +2607,6 @@ declare class Menu {
 
 	static OpenFolder(path: Array<string>): void;
 
-
 	static AddPrioritySelect(whereAt: Array<string>, name: string, images: Array<string>, state: Array<boolean> | boolean): MenuPrioritySelectHandler;
 
 	static SetHidden(handle: MenuOptionHandler, state: boolean): void;
@@ -2639,6 +2663,12 @@ declare class Menu {
 }
 
 declare class Matchmaking {
+	static SetCustomGameDifficultyMask(val: number): void;
+
+	static SetMatchLanguages(val: number): void;
+
+	static GetFindMatchData(): Object;
+
 	static Reconnect(): void;
 
 	static InviteToParty(steamID: BigInt): void;
