@@ -243,6 +243,8 @@ declare interface OnSayMsgObject {
 }
 
 declare interface ScriptDescription {
+	OnTeamVisablityChange?: (ent: NPC, oldValue: number, newValue: number) => boolean | void;
+
 	OnSayMsg?: (obj: OnSayMsgObject) => boolean | void;
 
 	OnParticleUpdateForward?: (obj: UpdatedParticleForward) => void;
@@ -2683,9 +2685,9 @@ declare class Matchmaking {
 
 	static SetGameModes(val: number): void;
 
-	//static GetRegionSelectionFlags(): number;
+	static GetRegionSelectionFlags(): number;
 
-	//static SetRegionSelectionFlags(val: number): void;
+	static SetRegionSelectionFlags(val: number): void;
 
 	static GetAccountData(): any;
 
