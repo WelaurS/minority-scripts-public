@@ -243,7 +243,9 @@ declare interface OnSayMsgObject {
 }
 
 declare interface ScriptDescription {
-	OnTeamVisablityChange?: (ent: NPC, oldValue: number, newValue: number) => boolean | void;
+	OnScreenSizeChange?: (screenW: number, screenH: number) => void;
+
+	OnTeamVisablityChange?: (ent: NPC, oldValue: number, newValue: number) => void;
 
 	OnSayMsg?: (obj: OnSayMsgObject) => boolean | void;
 
@@ -289,7 +291,7 @@ declare interface ScriptDescription {
 
 	OnParticleDestroy?: (particle: DestroyedParticle) => void;
 
-	OnEntityCreate?: (entity: NPC, index: number) => void;
+	OnEntityCreate?: (entity: NPC | Entity, index: number) => void;
 
 	OnEntityDestroy?: (entity: NPC, index: number) => void;
 
@@ -444,6 +446,11 @@ declare class EntitySystem {
 	static GetLinearProjectileList(): Array<LinearProjectileObject>;
 
 	static GetPhysicalItemsList(): PhysicalItem[];
+}
+
+// alias for EntitySystem
+declare class EntityList extends EntitySystem {
+	
 }
 
 declare class Input {
@@ -1266,6 +1273,8 @@ declare class NPC extends Entity {
 }
 
 declare class Entity {
+	GetEntityType(): Enum.EntityType;
+
 	GetPropertiesList(): any;
 
 	SetModelColor(r: number, g: number, b: number, a: number): void;
@@ -1569,6 +1578,21 @@ declare class GameRules {
 }
 
 declare namespace Enum {
+	export enum EntityType {
+		EntityType_None,
+		EntityType_Entity,
+		EntityType_NPC,
+		EntityType_Hero,
+		EntityType_Tower,
+		EntityType_Courier,
+		EntityType_Ability,
+		EntityType_Item,
+		EntityType_Rune,
+		EntityType_Player,
+		EntityType_PhysicalItem,
+		EntityType_Tree
+	}
+	
 	enum ContentAlign {
 		Left = 1,
 		CenterX = 2,
@@ -2136,7 +2160,6 @@ declare namespace Enum {
 		MODIFIER_STATE_FROZEN,
 		MODIFIER_STATE_COMMAND_RESTRICTED,
 		MODIFIER_STATE_NOT_ON_MINIMAP,
-		MODIFIER_STATE_NOT_ON_MINIMAP_FOR_ENEMIES,
 		MODIFIER_STATE_LOW_ATTACK_PRIORITY,
 		MODIFIER_STATE_NO_HEALTH_BAR,
 		MODIFIER_STATE_FLYING,
@@ -2152,6 +2175,13 @@ declare namespace Enum {
 		MODIFIER_STATE_TRUESIGHT_IMMUNE,
 		MODIFIER_STATE_UNTARGETABLE,
 		MODIFIER_STATE_IGNORING_MOVE_AND_ATTACK_ORDERS,
+		MODIFIER_STATE_ALLOW_PATHING_TROUGH_TREES,
+		MODIFIER_STATE_NOT_ON_MINIMAP_FOR_ENEMIES,
+		MODIFIER_STATE_UNSLOWABLE,
+		MODIFIER_STATE_TETHERED,
+		MODIFIER_STATE_IGNORING_STOP_ORDERS,
+		MODIFIER_STATE_FEARED,
+		MODIFIER_STATE_TAUNTED,
 		MODIFIER_STATE_LAST
 	}
 
