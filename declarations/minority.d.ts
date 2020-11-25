@@ -111,6 +111,7 @@ declare class Sound {
 	hash: number;
 	guid: number;
 	seed: number;
+	position: Vector;
 }
 
 declare interface PreparedOrder {
