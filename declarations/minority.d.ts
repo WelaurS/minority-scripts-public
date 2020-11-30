@@ -45,6 +45,7 @@ declare class Projectile {
 	fullName: string;
 	name: string;
 	handle: number;
+	index: number;
 }
 
 declare class LinearProjectile {
@@ -527,7 +528,29 @@ declare class Profiler
 	static Get(): ProfilerInfoObject[];
 }
 
+declare class Camera
+{
+	/**
+	 * @param val default false
+	 */
+	static SetEnableSmooth(val: boolean): void;
+
+	/**
+	 * @param val default 1000ms
+	 */
+	static SetZoomDuration(val: number): void;
+
+	/**
+	 * @param val default 1200
+	 */
+	static SetDistance(val: number): void;
+}
+
 declare class Renderer {
+	static WorldToMap(x: number, y: number): void;
+
+	static MapToWorld(x: number, y: number):  [number, number];
+
 	static DrawLine(x_start: number, y_start: number, x_end: number, y_end: number, time?: number): void;
 
 	static LoadImage(fileName: string): LoadedImage;
@@ -1351,6 +1374,8 @@ declare class Entity {
 	GetUnitsInRadius(radius: number, teamType: Enum.TeamType): Array<NPC>;
 
 	GetTreesInRadius(radius: number, isActive?: boolean): Array<Tree>;
+
+	GetTempTreeInRadius(radius: number): Array<Entity>;
 }
 
 declare class Item extends Ability {
@@ -1468,6 +1493,8 @@ declare class Angle {
 }
 
 declare class Engine {
+	static IsLocalScript(): boolean;
+
 	static SetHasGemColor(val: boolean): void;
 
 	static SetGemColor(r: number, g: number, b: number, a: number): void;
@@ -1591,7 +1618,8 @@ declare namespace Enum {
 		EntityType_Rune,
 		EntityType_Player,
 		EntityType_PhysicalItem,
-		EntityType_Tree
+		EntityType_Tree,
+		EntityType_TempTree
 	}
 	
 	enum ContentAlign {
